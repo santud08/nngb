@@ -1,0 +1,1148 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "NetPoint-Nxt-Generation APIs",
+    "termsOfService": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1/admin"
+    }
+
+  ],
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Banner"
+    },
+    {
+      "name": "General"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Admin Login: Validate Credentials: Login",
+        "description": "Used for admin login",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["user_name", "password","user_ip"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "user_type": {
+                    "type": "string",
+                    "example":"vendor or blank value"
+                  },
+                  "user_ip": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["user_name", "password","user_ip"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "user_type": {
+                    "type": "string",
+                    "example":"vendor or blank value"
+                  }
+                  ,
+                  "user_ip": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/login-external-ip": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Admin Login: Validate Credentials: Login login-external-ip",
+        "description": "Used for admin login using external ip and providing phone number",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["user_name","password","phone"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "user_type": {
+                    "type": "string",
+                    "example":"vendor or blank value"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["user_name","password","phone"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "user_type": {
+                    "type": "string",
+                    "example":"vendor or blank value"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }                  
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/banner": {
+      "post": {
+        "tags": ["Banner"],
+        "summary": "banner: Banner List with pagination and searching",
+        "description": "Used to list out banners",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": ["search_params.acquisition_channel"],
+                "type": "object",
+                "properties":{
+                  "page": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "example":10
+                  },
+                  "sort_by": {
+                    "type": "string",
+                    "example":"id"
+                  },
+                  "sort_order": {
+                    "type": "string",
+                    "example":"asc/desc"
+                  },
+                  "search_params": {
+                    "type": "object",
+                    "properties":{
+                      "acquisition_channel": {
+                        "type": "string",
+                        "example":"smart_panel/netpoint"
+                      },
+                      "banner_name": {
+                        "type": "string"
+                      },
+                      "start_date":{
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-01-01"
+                      },
+                      "end_date":{
+                        "type": "string",
+                        "format": "date",
+                        "example": "2023-01-01"
+                      },
+                      "is_exposed": {
+                        "type": "string",
+                        "example":"blank/true/false"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/banner/save": {
+      "post": {
+        "tags": ["Banner"],
+        "summary": "Banner: Add Banner",
+        "description": "Used to add banner",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": ["banner_name","exposer_start_date","exposer_end_date","acquisition_channel","banner_image_pc","banner_image_mobile","acquisition_channel"],
+                "type": "object",
+                "properties":{
+                  "banner_name": {
+                    "type": "string"
+                  },
+                  "exposer_start_date": {
+                    "type": "string",
+                    "format":"date",
+                    "example":"2023-11-05"
+                  },
+                  "exposer_end_date": {
+                    "type": "string",
+                    "format":"date",
+                    "example":"2023-11-15"
+                  },
+                  "link_url": {
+                    "type": "string",
+                    "example":"http://localhost:5000/gfhgf-hhkghk"
+                  },
+                  "link_target": {
+                    "type": "string",
+                    "example":"same_tab/new_tab"
+                  },
+                  "acquisition_channel": {
+                    "type": "string",
+                    "example":"netpoint/smart_panel"
+                  },
+                  "banner_image_pc": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "banner_image_mobile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/banner/details/{id}": {
+      "get": {
+        "tags": ["Banner"],
+        "summary": "Banner: Validate Credentials: to get the banner details",
+        "description": "Used banner details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "required":true,
+            "description": "banner id  whose details you want",
+            "schema": {
+              "type": "integer",
+              "example":"1"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/banner/update": {
+      "post": {
+        "tags": ["Banner"],
+        "summary": "Banner: Update Banner",
+        "description": "Used to update banner",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": ["id","banner_name","exposer_start_date","exposer_end_date","banner_image_pc","banner_image_mobile","acquisition_channel"],
+                "type": "object",
+                "properties":{
+                  "id":{
+                    "type": "integer",
+                    "example":"1"
+                  },
+                  "banner_name": {
+                    "type": "string"
+                  },
+                  "exposer_start_date": {
+                    "type": "string",
+                    "format":"date",
+                    "example":"2023-11-05"
+                  },
+                  "exposer_end_date": {
+                    "type": "string",
+                    "format":"date",
+                    "example":"2023-11-15"
+                  },
+                  "link_url": {
+                    "type": "string",
+                    "example":"http://localhost:5000/gfhgf-hhkghk"
+                  },
+                  "link_target": {
+                    "type": "string",
+                    "example":"same_tab/new_tab"
+                  },
+                  "acquisition_channel": {
+                    "type": "string",
+                    "example":"netpoint/smart_panel"
+                  },
+                  "banner_image_pc": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "banner_image_mobile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/banner/order-change": {
+      "post": {
+        "tags": ["Banner"],
+        "summary": "Banner: Update Banner's Priority",
+        "description": "Used to update banner's priority",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["banner_id","direction"],
+                "type": "object",
+                "properties":{
+                  "banner_id":{
+                    "type": "integer",
+                    "example":"1"
+                  },
+                  "direction": {
+                    "type": "string",
+                    "example":"up/down"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["banner_id","direction"],
+                "type": "object",
+                "properties":{
+                  "banner_id":{
+                    "type": "integer",
+                    "example":"1"
+                  },
+                  "direction": {
+                    "type": "string",
+                    "example":"up/down"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/banner/delete": {
+      "post": {
+        "tags": ["Banner"],
+        "summary": "Banner: Delete Banner",
+        "description": "Used to update banner delete",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["id"],
+                "type": "object",
+                "properties":{
+                  "id":{
+                    "type": "integer",
+                    "example":"1"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["id"],
+                "type": "object",
+                "properties":{
+                  "id":{
+                    "type": "integer",
+                    "example":"1"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/download/file": {
+      "get": {
+        "tags": ["General"],
+        "summary": "General: Validate Credentials: to download file",
+        "description": "Used for download file",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          },
+          {
+            "name": "url",
+            "in":"query",
+            "required":true,
+            "description": "url which details you want to download",
+            "schema": {
+              "type": "string",
+              "example":"hex code format url"
+            }
+          },
+          {
+            "name": "ul",
+            "in":"query",
+            "required":false,
+            "description": "if you want to delete or not the file after download the set it false, default is true means after download it will delete the file",
+            "schema": {
+              "type": "string",
+              "example":"true/false"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "serverErrorResponse": {
+        "title": "Server Error Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Something Went Wrong"
+        }
+      },
+      "badRequestResponse": {
+        "title": "Bad Request Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Bad request"
+        }
+      },
+      "forbiddenResponse": {
+        "title": "Forbidden Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Forbidden access"
+        }
+      },
+      "unauthorizedResponse": {
+        "title": "Unauthorized Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Unauthorized Access"
+        }
+      },
+      "successResponseObject": {
+        "title": "Success Response",
+        "type": "object"
+      }
+    },
+    "parameters": {
+      "AcceptLanguage": {
+        "name": "accept-language",
+        "in": "header",
+        "description": "Incase we want to send current language along our request",
+        "schema": {
+          "type": "string",
+          "default": "en"
+        }
+      },
+      "ApiKey": {
+        "name": "x-api-key",
+        "in": "header",
+        "description": "Incase we want to send current custom api key along our request",
+        "schema": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "AccessToken": {
+        "name": "token",
+        "in": "header",
+        "description": "Incase we want to send current custom access token along our request",
+        "schema": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "Id": {
+        "name": "id",
+        "required": true,
+        "in": "path",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Name": {
+        "name": "name",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      },
+      "userAccessToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,0 +1,2303 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "NetPoint-Nxt-Generation APIs",
+    "termsOfService": "",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+
+  ],
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "General"
+    },
+    {
+      "name": "Inquiry"
+    },
+    {
+      "name": "Sub-panel"
+    },
+    {
+      "name": "Survey Request"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login: Validate Credentials: Login",
+        "description": "Used for user login",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["user_name", "password"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "acquisition_channel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint or blank value"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["user_name", "password"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "acquisition_channel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint or blank value"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/find-id": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login: Validate Credentials: Login find-id",
+        "description": "Used for user login find-id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["mobile"],
+                "type": "object",
+                "properties": {
+                  "mobile": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["mobile"],
+                "type": "object",
+                "properties": {
+                  "mobile": {
+                    "type": "integer"
+                  }                  
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/find-password": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login: Validate Credentials: Login find-password",
+        "description": "Used for user login find-password",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["user_name","mobile"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "mobile": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["user_name","mobile"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },                  
+                  "mobile": {
+                    "type": "integer"
+                  }                  
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Signup: Validate Credentials: Signup",
+        "description": "Used for new user registration",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["user_name","password","email","mobile", "name","user_type","gender","dob","nationality","mobile_carrier","bank_code","bank_account_number","zip_code","address","marital_status","house_wife","furniture","household_income","housing_type","form_of_home_ownership","dwelling_house_size","last_degree","job","cell_phone_type","cell_phone_manufacturer","telecommunication_carrier","vehicle_possession","vehicle_type","vehicle_brand","vehicle_class","sport_on_regular_basis","CI","DI","home_appliances","register_from","acquisition_channel"],
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format":"email"
+                  },
+                  "mobile": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "user_type": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "dob": {
+                    "type": "string",
+                    "format":"date"
+                  },
+                  "nationality": {
+                    "type": "string"
+                  },
+                  "mobile_carrier": {
+                    "type": "string"
+                  },
+                  "bank_code": {
+                    "type": "string"
+                  },
+                  "bank_account_number": {
+                    "type": "string"
+                  },
+                  "zip_code": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["email", "password","name"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/check-email": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Signup: Validate Credentials: Email",
+        "description": "Used for new user registration user given email check",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/email-verify": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Signup: Validate Credentials: Validate Email",
+        "description": "Used for new user registration user given email validate by sending verification code if mail is available",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/send-reset-verification-code": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login: Validate Credentials: Forget Password Send Reset Verification Code In Mail",
+        "description": "Used for already registered user who forgot his password. And one email verification code send to register email id to reset the password",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["email"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/check-verification-code": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login: Validate Credentials: Forget Password Send Reset Verification Code Check",
+        "description": "Used for already registered user who want reset his password. And email verification code that sent to register email will check for reset the password",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["email","verification_code"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "verification_code": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["email","verification_code"],
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "verification_code": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/setting-password": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User Login: Validate Credentials: Set New Password",
+        "description": "Used for already registered user who want reset his password. And email verification code checked & verify you can set new password",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["user_id","verification_code","password"],
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "verification_code": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["user_id","verification_code","password"],
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "integer"
+                  },
+                  "verification_code": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/download/file": {
+      "get": {
+        "tags": ["General"],
+        "summary": "General: Validate Credentials: to download file",
+        "description": "Used for download file",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          },
+          {
+            "name": "url",
+            "in":"query",
+            "required":true,
+            "description": "url which details you want to download",
+            "schema": {
+              "type": "string",
+              "example":"hex code format url"
+            }
+          },
+          {
+            "name": "ul",
+            "in":"query",
+            "required":false,
+            "description": "if you want to delete or not the file after download the set it false, default is true means after download it will delete the file",
+            "schema": {
+              "type": "string",
+              "example":"true/false"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/survey-request/add": {
+      "post": {
+        "tags": ["Survey Request"],
+        "summary": "Survey Request: Validate Credentials: create survey request",
+        "description": "Used for request a survey",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": ["name","survey_method[]","email","phone","survey_condition","investigation_start_date","investigation_end_date","survey_content","panel"],
+                "type": "object",
+                "properties":{
+                  "name": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "survey_method[]": {
+                    "type": "array",
+                    "items":{"type": "string"},
+                    "example":["online_survey_creation","panel_rental","etc"]
+                  },
+                  "email": {
+                    "type": "string",
+                    "example":"email@format.co"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "company_name": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "department": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "survey_condition": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "investigation_start_date": {
+                    "type": "string",
+                    "example":"2023-08-05"
+                  },
+                  "investigation_end_date": {
+                    "type": "string",
+                    "example":"2023-08-15"
+                  },
+                  "survey_target": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "survey_content": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "panel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items":{"type": "string","format":"binary"}
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/inquiry/category": {
+      "get": {
+        "tags": ["Inquiry"],
+        "summary": "Inquiry: Validate Credentials: to get the inquiry category list",
+        "description": "Used my page inquiry category list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          },
+          {
+            "name": "panel",
+            "in":"query",
+            "required":true,
+            "description": "panel which details you want to fetch",
+            "schema": {
+              "type": "string",
+              "example":"netpoint/smart_panel"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/inquiry": {
+      "post": {
+        "tags": ["Inquiry"],
+        "summary": "Inquiry: Validate Credentials:My page Inquiry list",
+        "description": "My page Inquiry list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [],
+                "type": "object",
+                "properties":{
+                  "page": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "example":10
+                  },
+                  "sort_by": {
+                    "type": "string",
+                    "example":"id"
+                  },
+                  "sort_order": {
+                    "type": "string",
+                    "example":"asc/desc"
+                  },
+                  "panel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint or blank value"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": [],
+                "type": "object",
+                "properties":{
+                  "page": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "example":10
+                  },
+                  "sort_by": {
+                    "type": "string",
+                    "example":"id"
+                  },
+                  "sort_order": {
+                    "type": "string",
+                    "example":"asc/desc"
+                  },
+                  "panel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint or blank value"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/inquiry/add": {
+      "post": {
+        "tags": ["Inquiry"],
+        "summary": "Inquiry: Validate Credentials:My page Add Inquiry",
+        "description": "My page Add Inquiry",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["inquiry_category_id","inquiry_title","panel","user_email"],
+                "type": "object",
+                "properties":{
+                  "parent_id": {
+                    "type": "integer",
+                    "example":""
+                  },
+                  "inquiry_category_id": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "inquiry_title": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "inquiry_description": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "inquiry_answer": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "user_email": {
+                    "type": "string",
+                    "format":"email",
+                    "example":""
+                  },
+                  "panel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["inquiry_category_id","inquiry_title","panel","user_email"],
+                "type": "object",
+                "properties":{
+                  "parent_id": {
+                    "type": "integer",
+                    "example":""
+                  },
+                  "inquiry_category_id": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "inquiry_title": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "inquiry_description": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "inquiry_answer": {
+                    "type": "string",
+                    "example":""
+                  },
+                  "user_email": {
+                    "type": "string",
+                    "format":"email",
+                    "example":""
+                  },
+                  "panel": {
+                    "type": "string",
+                    "example":"smart_panel/netpoint"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/inquiry/details/{id}": {
+      "get": {
+        "tags": ["Inquiry"],
+        "summary": "Inquiry: Validate Credentials: to get the inquiry details",
+        "description": "Used my page inquiry details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "required":true,
+            "description": "inquiry id  which details you want",
+            "schema": {
+              "type": "integer",
+              "example":"1"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/subpanel/current-panels": {
+      "post": {
+        "tags": ["Sub-panel"],
+        "summary": "Sub-panel: Validate Credentials:My page current panels list",
+        "description": "My page current panels list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [],
+                "type": "object",
+                "properties":{
+                  "page": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "example":10
+                  },
+                  "sort_by": {
+                    "type": "string",
+                    "example":"id"
+                  },
+                  "sort_order": {
+                    "type": "string",
+                    "example":"asc/desc"
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": [],
+                "type": "object",
+                "properties":{
+                  "page": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "example":10
+                  },
+                  "sort_by": {
+                    "type": "string",
+                    "example":"id"
+                  },
+                  "sort_order": {
+                    "type": "string",
+                    "example":"asc/desc"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/subpanel/join/list/panels": {
+      "get": {
+        "tags": ["Sub-panel"],
+        "summary": "Sub-panel: Validate Credentials: to get the subpanel list for join panel",
+        "description": "Used my page the subpanel list for join panel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/subpanel/question-answers/panel/{id}": {
+      "get": {
+        "tags": ["Sub-panel"],
+        "summary": "Sub-panel: Validate Credentials: to get the subpanel question answers list for join panel",
+        "description": "Used my page the subpanel question answers list for join panel",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          },
+          {
+            "name": "id",
+            "in":"path",
+            "required":true,
+            "description": "subpanel id  which details you want",
+            "schema": {
+              "type": "integer",
+              "example":"1"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+            },
+            "application/json": {
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/subpanel/join/panel/registration": {
+      "post": {
+        "tags": ["Sub-panel"],
+        "summary": "Sub-panel: Validate Credentials:My page join in the panels",
+        "description": "My page join in the panels",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": ["subpanel_id","answers"],
+                "type": "object",
+                "properties":{
+                  "subpanel_id": {
+                    "type": "integer",
+                    "example":1
+                  },
+                  "answers": {
+                    "type": "array",
+                    "items":{"type": "object","properties":{"question_id":{"type":"integer"},"option_id":{"type":"integer"},"comment":{"type":"string"}}},
+                    "example":[{"question_id":1,"option_id":2,"comment":"drama"}]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/my-page/subpanel/secession": {
+      "post": {
+        "tags": ["Sub-panel"],
+        "summary": "Sub-panel: Validate Credentials:My page secession from current panels list",
+        "description": "My page secession current panels list",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          },
+          {
+            "$ref": "#/components/parameters/ApiKey"
+          },
+          {
+            "$ref": "#/components/parameters/AccessToken"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": ["subpanel_id"],
+                "type": "object",
+                "properties":{
+                  "subpanel_id": {
+                    "type": "integer",
+                    "example":1
+                  }
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "required": ["subpanel_id"],
+                "type": "object",
+                "properties":{
+                  "subpanel_id": {
+                    "type": "integer",
+                    "example":1
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/successResponseObject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizedResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "x-codegen-request-body-name": "body"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "serverErrorResponse": {
+        "title": "Server Error Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Something Went Wrong"
+        }
+      },
+      "badRequestResponse": {
+        "title": "Bad Request Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Bad request"
+        }
+      },
+      "forbiddenResponse": {
+        "title": "Forbidden Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Forbidden access"
+        }
+      },
+      "unauthorizedResponse": {
+        "title": "Unauthorized Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Unauthorized Access"
+        }
+      },
+      "successResponseObject": {
+        "title": "Success Response",
+        "type": "object"
+      }
+    },
+    "parameters": {
+      "AcceptLanguage": {
+        "name": "accept-language",
+        "in": "header",
+        "description": "Incase we want to send current language along our request",
+        "schema": {
+          "type": "string",
+          "default": "en"
+        }
+      },
+      "ApiKey": {
+        "name": "x-api-key",
+        "in": "header",
+        "description": "Incase we want to send current custom api key along our request",
+        "schema": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "AccessToken": {
+        "name": "token",
+        "in": "header",
+        "description": "Incase we want to send current custom access token along our request",
+        "schema": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "Id": {
+        "name": "id",
+        "required": true,
+        "in": "path",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Name": {
+        "name": "name",
+        "in": "query",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      },
+      "userAccessToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
